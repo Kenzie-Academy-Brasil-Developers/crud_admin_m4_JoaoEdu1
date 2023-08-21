@@ -70,7 +70,7 @@ Você foi o desenvolvedor selecionado para implementar o MVP levando em conta o 
 
 ### **users e courses**
 
-- Um usuário pode se matricular em vários cursos e um curso pode ter vários usuários matriculados a ele.
+- - Um usuário pode se matricular em vários cursos e um curso pode ter vários usuários matriculados a ele.
 - Caso um **_course_** seja deletado, todas as relações com **_users_** devem ser **deletadas** automaticamente da tabela intermediária.
 - Caso um **_user_** seja deletado, todas as relações com **_courses_** devem ser **deletadas** automaticamente da tabela intermediária.
 
