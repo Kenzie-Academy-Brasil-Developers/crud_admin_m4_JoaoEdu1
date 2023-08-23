@@ -1,14 +1,10 @@
 import { QueryResult } from "pg";
+import { z } from "zod";
+import { userCoursesCreateSchema, userCoursesSchema } from "../schemas";
 
-interface userCourses {
-  id: number;
-  active: boolean;
-  userId: number;
-  courseId: number;
-}
+type userCourses = z.infer<typeof userCoursesSchema>;
+type userCoursesCreate = z.infer<typeof userCoursesCreateSchema>;
 
-type userCoursesCreate = Omit<userCourses, "id">;
-type userCoursesUpdate = Partial<userCoursesCreate>;
 type userCoursesResult = QueryResult<userCourses>;
 
-export { userCourses, userCoursesCreate, userCoursesUpdate, userCoursesResult };
+export { userCourses, userCoursesCreate, userCoursesResult };

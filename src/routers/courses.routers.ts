@@ -1,13 +1,46 @@
 import { Router } from "express";
-import { verifyToken, verifyUserPermission } from "../middlewares";
+import {
+  checkUserAndCourseExistence,
+  validateAdmin,
+  validateBody,
+  verifyToken,
+  verifyUserPermission,
+} from "../middlewares";
+import { coursesControllers, userCoursesControllers } from "../controllers";
+import { createCoursesSchema } from "../schemas";
 
 const coursesRouter: Router = Router();
 
-coursesRouter.post("", verifyToken, verifyUserPermission);
-coursesRouter.get("");
+coursesRouter.post(
+  "",
+  validateBody(createCoursesSchema),
+  verifyToken,
+  verifyUserPermission,
+  coursesControllers.create
+);
+coursesRouter.get("", coursesControllers.read);
 
-coursesRouter.post("/:courseId/users/:userId");
-coursesRouter.delete("/:courseId/users/:userId");
-coursesRouter.get("/:id/users");
+coursesRouter.post(
+  "/:courseId/users/:userId",
+  verifyToken,
+  verifyUserPermission,
+  checkUserAndCourseExistence,
+  userCoursesControllers.create
+);
+coursesRouter.delete(
+  "/:courseId/users/:userId",
+
+  verifyToken,
+  verifyUserPermission,
+  checkUserAndCourseExistence,
+  userCoursesControllers.destroy
+);
+coursesRouter.get(
+  "/:id/users",
+  verifyToken,
+  verifyUserPermission,
+  validateAdmin,
+  userCoursesControllers.read
+);
 
 export default coursesRouter;

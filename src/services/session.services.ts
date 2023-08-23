@@ -2,6 +2,7 @@ import { sign } from "jsonwebtoken";
 import { client } from "../database";
 import { AppError } from "../errors";
 import { SessionCreate, SessionReturn, User, UserResult } from "../interfaces";
+import { compare } from "bcryptjs";
 
 const create = async (payload: SessionCreate): Promise<SessionReturn> => {
   const query: UserResult = await client.query(
@@ -10,13 +11,15 @@ const create = async (payload: SessionCreate): Promise<SessionReturn> => {
   );
 
   if (query.rowCount === 0) {
-    throw new AppError("Wrong email/password.", 401);
+    throw new AppError("Wrong email/password", 401);
   }
 
   const user: User = query.rows[0];
 
-  if (user.password !== payload.password) {
-    throw new AppError("Wrong email/password.", 401);
+  const password = await compare(payload.password, user.password);
+
+  if (!password) {
+    throw new AppError("Wrong email/password", 401);
   }
 
   const token: string = sign(

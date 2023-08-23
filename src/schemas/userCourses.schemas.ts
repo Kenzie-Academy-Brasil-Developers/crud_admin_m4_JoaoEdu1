@@ -1,26 +1,16 @@
 import { z } from "zod";
 
-const coursesSchema = z.object({
+const userCoursesSchema = z.object({
   id: z.number().positive(),
   active: z.boolean().default(true),
   userId: z.number().positive(),
+  courseId: z.number().positive(),
 });
 
-const userCoursesCreate = coursesSchema.omit({
+const userCoursesCreateSchema = userCoursesSchema.omit({
   id: true,
   userId: true,
   courseId: true,
 });
 
-const coursesReadSchema = coursesSchema.array();
-
-const usersAddCourseSchema = z.object({
-  courseId: z.number().positive(),
-});
-
-export {
-  coursesSchema,
-  userCoursesCreate,
-  coursesReadSchema,
-  usersAddCourseSchema,
-};
+export { userCoursesSchema, userCoursesCreateSchema };

@@ -8,10 +8,16 @@ const usersSchema = z.object({
   admin: z.boolean().default(false),
 });
 
-const createUsersSchema = usersSchema.omit({
-  id: true,
-});
-
+const createUsersSchema = usersSchema.omit({ id: true });
 const userUpdateSchema = createUsersSchema.partial();
 
-export { usersSchema, createUsersSchema, userUpdateSchema };
+const userReturnSchema = usersSchema.omit({ password: true });
+const userReadSchema = userReturnSchema.array();
+
+export {
+  usersSchema,
+  createUsersSchema,
+  userUpdateSchema,
+  userReturnSchema,
+  userReadSchema,
+};

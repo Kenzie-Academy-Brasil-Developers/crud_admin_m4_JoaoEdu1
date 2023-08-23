@@ -6,8 +6,7 @@ const coursesSchema = z.object({
   description: z.string(),
 });
 
-const createCoursesSchema = coursesSchema.omit({
-  id: true,
-});
+const createCoursesSchema = coursesSchema.omit({ id: true });
+const courseReadSchema = coursesSchema.array();
 
-export { coursesSchema, createCoursesSchema };
+export { coursesSchema, createCoursesSchema, courseReadSchema };

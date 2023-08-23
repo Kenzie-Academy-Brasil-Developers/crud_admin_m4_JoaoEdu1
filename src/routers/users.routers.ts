@@ -17,6 +17,7 @@ usersRouter.post(
   usersControllers.create
 );
 usersRouter.get("", verifyToken, verifyUserPermission, usersControllers.read);
+
 usersRouter.get(
   "/:id/courses",
   verifyToken,

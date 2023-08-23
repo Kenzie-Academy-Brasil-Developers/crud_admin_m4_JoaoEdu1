@@ -1,10 +1,15 @@
 import { z } from "zod";
 import { QueryResult } from "pg";
-import { coursesSchema, createCoursesSchema } from "../schemas/courses.schemas";
+import {
+  courseReadSchema,
+  coursesSchema,
+  createCoursesSchema,
+} from "../schemas/courses.schemas";
 
-type Courses = z.infer<typeof coursesSchema>;
+type courses = z.infer<typeof coursesSchema>;
 
-type CoursesRequest = z.infer<typeof createCoursesSchema>;
-type CoursesResult = QueryResult<Courses>;
+type coursesCreate = z.infer<typeof createCoursesSchema>;
+type coursesResult = QueryResult<courses>;
+type coursesRead = z.infer<typeof courseReadSchema>;
 
-export { Courses, CoursesRequest, CoursesResult };
+export { courses, coursesCreate, coursesResult, coursesRead };
